@@ -1,6 +1,6 @@
 /* IGEEK for mbed @version 0.x
 @link    https://github.com/kabuki-starship/igeek.mbed.git
-@file    /kabuki/sdk/tek/portalwifi.h
+@file    /octows28xx.h
 @author  Cale McCollough <https://calemccollough.github.io>
 @license Copyright (C) 2014-9 Cale McCollough; all right reserved (R). 
 This Source Code Form is subject to the terms of the Mozilla Public License, 
@@ -9,9 +9,18 @@ obtain one at https://mozilla.org/MPL/2.0/. */
 
 #pragma once
 #include <pch.h>
-#ifndef IGEEK_MBED_GLOBAL
-#define IGEEK_MBED_GLOBAL 1
+#ifndef IGEEK_MBED_LEDS_OCTOWS28XX
+#define IGEEK_MBED_LEDS_OCTOWS28XX 1
 
-#include "c_unicontroller.h"
+namespace _ {
 
+/* 8-Channel address LED controller (stub). */
+class OctoWS28xx {
+ public:
+  /* Does nothing. */
+  OctoWS28xx() {}
+
+ private:
+};
+}  // namespace _
 #endif
