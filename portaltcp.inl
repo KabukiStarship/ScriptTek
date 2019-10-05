@@ -1,13 +1,13 @@
-/* IGEEK for mbed @version 0.x
-@link    https://github.com/kabuki-starship/igeek.mbed.git
-@file    /porttcp.inl
+/* Kabuki Tek Toolkit @version 0.x
+@link    https://github.com/kabuki-starship/kabuki.toolkit.tek.git
+@file    /portal_tcp.inl
 @author  Cale McCollough <https://calemccollough.github.io>
-@license Copyright (C) 2014-9 Cale McCollough; all right reserved (R). 
-This Source Code Form is subject to the terms of the Mozilla Public License, 
-v. 2.0. If a copy of the MPL was not distributed with this file, You can 
-obtain one at https://mozilla.org/MPL/2.0/. */
+@license Copyright 2019 (C) Kabuki Starship (TM) <kabukistarship.com>.
+This Source Code Form is subject to the terms of the Mozilla Public License, v. 
+2.0. If a copy of the MPL was not distributed with this file, You can obtain one
+at <https://mozilla.org/MPL/2.0/>. */
 
-#include "c_portaltcb.h"
+#include "portaltcb.h"
 
 namespace _ {
 
@@ -26,7 +26,7 @@ printf ("Ethernet socket example\n");
 net.connect ();
 
 // Show the network address
-const CH1 *ip = net.get_ip_address ();
+const CHA *ip = net.get_ip_address ();
 printf ("IP address is: %s\n", ip?ip:"No IP");
 
 // Open a socket on the network interface, and create a TCP connection to
@@ -36,14 +36,14 @@ socket.open (&net);
 socket.connect ("developer.mbed.org", 80);
 
 // Send a simple http request
-CH1 sbuffer[] = "GET / HTTP/1.1\r\nHost: developer.mbed.org\r\n\r\n";
-SI4 scount = socket.send (sbuffer, sizeof sbuffer);
+CHA sbuffer[] = "GET / HTTP/1.1\r\nHost: developer.mbed.org\r\n\r\n";
+SIC scount = socket.send (sbuffer, sizeof sbuffer);
 printf ("sent %d [%.*s]\n", scount, strstr (sbuffer, "\r\n") - sbuffer,
       sbuffer);
 
 // Receive a simple http response and print out the response line
-CH1 rbuffer[64];
-SI4 rcount = socket.recv (rbuffer, sizeof rbuffer);
+CHA rbuffer[64];
+SIC rcount = socket.recv (rbuffer, sizeof rbuffer);
 printf ("recv %d [%.*s]\n", rcount, strstr (rbuffer, "\r\n") - rbuffer,
       rbuffer);
 

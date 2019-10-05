@@ -1,19 +1,19 @@
-/* IGEEK for mbed @version 0.x
-@link    https://github.com/kabuki-starship/igeek.mbed.git
-@file    /kotarybank.inl
+/* Kabuki Tek Toolkit @version 0.x
+@link    https://github.com/kabuki-starship/kabuki.toolkit.tek.git
+@file    /kotary_bank.inl
 @author  Cale McCollough <https://calemccollough.github.io>
-@license Copyright (C) 2014-9 Cale McCollough; all right reserved (R). 
-This Source Code Form is subject to the terms of the Mozilla Public License, 
-v. 2.0. If a copy of the MPL was not distributed with this file, You can 
-obtain one at https://mozilla.org/MPL/2.0/. */
+@license Copyright 2019 (C) Kabuki Starship (TM) <kabukistarship.com>.
+This Source Code Form is subject to the terms of the Mozilla Public License, v. 
+2.0. If a copy of the MPL was not distributed with this file, You can obtain one
+at <https://mozilla.org/MPL/2.0/>. */
 
 #include "rotaryknobbank.h"
 
 namespace _ {
 
 RotaryKnobBank::RotaryKnobBank(ch_t num_knobs, ch_t start_channel,
-                               ch_t num_banks, const UI1* rows,
-                               const UI1* columns)
+                               ch_t num_banks, const UIA* rows,
+                               const UIA* columns)
     : channel_count_(num_knobs),
       start_channel_(start_channel),
       num_banks_(num_banks),
@@ -41,16 +41,16 @@ void RotaryKnobBank::CycleBank() {
     current_channel_ = start_channel_;
 }
 
-void RotaryKnobBank::Update(SI2* channels, SI2* min_values, SI2* max_values,
-                            UI1* spi_out_bytes, SI2 row, int8_t count) {
-  // for  (UI2 i = 0; i < count; ++i)
+void RotaryKnobBank::Update(SIB* channels, SIB* min_values, SIB* max_values,
+                            UIA* spi_out_bytes, SIB row, int8_t count) {
+  // for  (UIB i = 0; i < count; ++i)
   //   UpdateChannel  (i, channels, minValues, maxValues, spiOutBytes, row,
   //                   count, wiring_config_);
 }
 
-void RotaryKnobBank::UpdateChannel(UI2 index, SI2* channels, SI2* min_values,
-                                   SI2* max_values, UI1* spi_out_bytes, UI2 row,
-                                   UI1 count) {
+void RotaryKnobBank::UpdateChannel(UIB index, SIB* channels, SIB* min_values,
+                                   SIB* max_values, UIA* spi_out_bytes, UIB row,
+                                   UIA count) {
   if (channels == nullptr) return;
   if (min_values == nullptr) return;
   if (max_values == nullptr) return;
@@ -64,17 +64,17 @@ void RotaryKnobBank::UpdateChannel(UI2 index, SI2* channels, SI2* min_values,
       {0, 1, 2, 3, 4, 5, 6, 7, 7, 6, 5, 4, 3, 2, 1, 0}};
   //< LEDRingConfig::ButtonsOnBottomRows
 
-  SI2 value = channels[index], min_value = min_values[index],
+  SIB value = channels[index], min_value = min_values[index],
       max_value = max_values[index],
       ring_index = (value - min_value) % ((max_value - min_value) / 15),
       row_index = kLedIndexToRowMap[wiring_config_][ring_index];
 
   if (row != row_index) return;
 
-  // UI2 columnNumber =  (index - current_channel_) >> 2;
+  // UIB columnNumber =  (index - current_channel_) >> 2;
   //< >> 2 to divide by 2
 
-  // UI1 columnBit = columns[columnNumber],
+  // UIA columnBit = columns[columnNumber],
   //    mask = 1 <<  (columnBit & BitNumberMask);
 }
 

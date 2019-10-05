@@ -1,13 +1,13 @@
-/* IGEEK for mbed @version 0.x
-@link    https://github.com/kabuki-starship/igeek.mbed.git
+/* Kabuki Tek Toolkit @version 0.x
+@link    https://github.com/kabuki-starship/kabuki.toolkit.tek.git
 @file    /switch.inl
 @author  Cale McCollough <https://calemccollough.github.io>
-@license Copyright (C) 2014-9 Cale McCollough; all right reserved (R). 
-This Source Code Form is subject to the terms of the Mozilla Public License, 
-v. 2.0. If a copy of the MPL was not distributed with this file, You can 
-obtain one at https://mozilla.org/MPL/2.0/. */
+@license Copyright 2019 (C) Kabuki Starship (TM) <kabukistarship.com>.
+This Source Code Form is subject to the terms of the Mozilla Public License, v. 
+2.0. If a copy of the MPL was not distributed with this file, You can obtain one
+at <https://mozilla.org/MPL/2.0/>. */
 
-#include "c_switch.h"
+#include "switch.h"
 
 namespace _ {
 
@@ -26,12 +26,12 @@ const Operation* Switch::Star(char_t index, Expr* expr) {
     case '?':
       return &This;
     case 'a': {
-      static const Operation OpA = {"Read", Params<1, SI4>(), Params<NIL>(),
+      static const Operation OpA = {"Read", Params<1, SIC>(), Params<NIL>(),
                                     "Reads the switch state."};
       if (!expr) return &OpA;
 
-      SI4 temp = 0;  // input;
-      UI1 switchState = (UI1)temp;
+      SIC temp = 0;  // input;
+      UIA switchState = (UIA)temp;
 
       return Result(expr, Params<NIL>(), Args(args, &switchState));
     }

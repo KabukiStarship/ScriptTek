@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -18,81 +18,11 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="button.h" />
-    <ClInclude Include="color.h" />
-    <ClInclude Include="color.hpp" />
-    <ClInclude Include="debouncer.h" />
-    <ClInclude Include="display.h" />
-    <ClInclude Include="dmxanimation.h" />
-    <ClInclude Include="dmxbuffer.h" />
-    <ClInclude Include="dmxreceiver.h" />
-    <ClInclude Include="dmxtransceiver.h" />
-    <ClInclude Include="flowcontroller.h" />
-    <ClInclude Include="flyingfader.h" />
-    <ClInclude Include="global.h" />
-    <ClInclude Include="ioexpander.h" />
-    <ClInclude Include="led.h" />
-    <ClInclude Include="ledmatrix.h" />
-    <ClInclude Include="ledrgb.h" />
-    <ClInclude Include="ledvumeter.h" />
-    <ClInclude Include="ledvumeterarray.h" />
-    <ClInclude Include="micelectrolytic.h" />
-    <ClInclude Include="motorhbridge.h" />
-    <ClInclude Include="octows28xx.h" />
-    <ClInclude Include="pch.h" />
-    <ClInclude Include="photosensor.h" />
-    <ClInclude Include="portali2c.h" />
-    <ClInclude Include="portalserial.h" />
-    <ClInclude Include="portalspi.h" />
-    <ClInclude Include="portaltcp.h" />
-    <ClInclude Include="portalwifi.h" />
-    <ClInclude Include="pot.h" />
-    <ClInclude Include="rgbstatusled.h" />
-    <ClInclude Include="rotaryknob.h" />
-    <ClInclude Include="rotaryknobbank.h" />
-    <ClInclude Include="statusled.h" />
-    <ClInclude Include="switch.h" />
-    <ClInclude Include="unicontroller.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="button.inl" />
-    <None Include="color.inl" />
-    <None Include="dmxanimation.inl" />
-    <None Include="dmxbuffer.inl" />
-    <None Include="flowcontroller.inl" />
-    <None Include="flyingfader.inl" />
-    <None Include="ioexpander.inl" />
-    <None Include="knobrotary.inl" />
-    <None Include="knobrotarybank.inl" />
-    <None Include="led.inl" />
-    <None Include="ledrgb.inl" />
-    <None Include="main.inl" />
-    <None Include="micelectrolytic.inl" />
-    <None Include="module.inl" />
-    <None Include="module_debug.inl" />
-    <None Include="module_footer.inl" />
-    <None Include="module_release.inl" />
-    <None Include="motorhbridge.inl" />
-    <None Include="pch.inl" />
-    <None Include="portali2c.inl" />
-    <None Include="portalserial.inl" />
-    <None Include="portalspi.inl" />
-    <None Include="portaltcp.inl" />
-    <None Include="pot.inl" />
-    <None Include="potosensor.inl" />
-    <None Include="readme.md" />
-    <None Include="seams\00_foo.inl" />
-    <None Include="seams\01_bar.inl" />
-    <None Include="seams\all.inl" />
-    <None Include="switch.inl" />
-    <None Include="unicontroller.inl" />
-  </ItemGroup>
   <PropertyGroup Label="Globals">
-    <VCProjectVersion>16.0</VCProjectVersion>
-    <ProjectGuid>{A9C23DBA-DE8F-42F0-B08E-0F7BC534DA47}</ProjectGuid>
+    <VCProjectVersion>15.0</VCProjectVersion>
+    <ProjectGuid>{B9ACE399-A0DE-49A8-9BED-7D5386BD2D6F}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>TekLib</RootNamespace>
+    <RootNamespace>kabukisdkdata</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
     <ProjectName>igeek.mbed</ProjectName>
   </PropertyGroup>
@@ -141,62 +71,43 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <LinkIncremental>false</LinkIncremental>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <ClCompile>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
-      <WarningLevel>Level3</WarningLevel>
-      <Optimization>MaxSpeed</Optimization>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
-      <IntrinsicFunctions>true</IntrinsicFunctions>
-      <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
-    </ClCompile>
-    <Link>
-      <SubSystem>Console</SubSystem>
-      <EnableCOMDATFolding>true</EnableCOMDATFolding>
-      <OptimizeReferences>true</OptimizeReferences>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-    </Link>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <ClCompile>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
-      <WarningLevel>Level3</WarningLevel>
-      <Optimization>Disabled</Optimization>
-      <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
-    </ClCompile>
-    <Link>
-      <SubSystem>Console</SubSystem>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-    </Link>
-  </ItemDefinitionGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)./</AdditionalIncludeDirectories>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>$(ProjectDir).\;$(ProjectDir).\..\..\</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -205,8 +116,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -214,6 +124,26 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

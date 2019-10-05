@@ -1,27 +1,27 @@
-/* IGEEK for mbed @version 0.x
-@link    https://github.com/kabuki-starship/igeek.mbed.git
+/* Kabuki Tek Toolkit @version 0.x
+@link    https://github.com/kabuki-starship/kabuki.toolkit.tek.git
 @file    /unicontroller.h
 @author  Cale McCollough <https://calemccollough.github.io>
-@license Copyright (C) 2014-9 Cale McCollough; all right reserved (R). 
-This Source Code Form is subject to the terms of the Mozilla Public License, 
-v. 2.0. If a copy of the MPL was not distributed with this file, You can 
-obtain one at https://mozilla.org/MPL/2.0/. */
+@license Copyright 2019 (C) Kabuki Starship (TM) <kabukistarship.com>.
+This Source Code Form is subject to the terms of the Mozilla Public License, v. 
+2.0. If a copy of the MPL was not distributed with this file, You can obtain one
+at <https://mozilla.org/MPL/2.0/>. */
 
 #pragma once
-#include <pch.h>
-#ifndef IGEEK_MBED_UNICONTROLLER
-#define IGEEK_MBED_UNICONTROLLER 1
+#include <module_config.h>
+#ifndef KABUKI_TEK_UNICONTROLLER
+#define KABUKI_TEK_UNICONTROLLER 1
 
-#include "c_button.h"
-#include "c_debouncer.h"
-#include "c_ioexpander.h"
-#include "c_led.h"
-#include "c_ledmatrix.h"
-#include "c_ledrgb.h"
-#include "c_portin.h"
-#include "c_pot.h"
-#include "c_rotaryknob.h"
-#include "c_rotaryknobbank.h"
+#include "button.h"
+#include "debouncer.h"
+#include "ioexpander.h"
+#include "led.h"
+#include "ledmatrix.h"
+#include "ledrgb.h"
+#include "portin.h"
+#include "pot.h"
+#include "rotaryknob.h"
+#include "rotaryknobbank.h"
 
 namespace _ {
 
@@ -84,7 +84,7 @@ class Unicontroller {
 
   /* Default constructor.
   @param leds The LEDs. */
-  Unicontroller(UI1* mixer, ch_t num_channels, Led** leds, ch_t num_leds,
+  Unicontroller(UIA* mixer, ch_t num_channels, Led** leds, ch_t num_leds,
                 LEDRGB** rgb_leds, ch_t num_rgb_leds, Button** buttons,
                 ch_t num_buttons, Pot** Pots, ch_t num_pots, RotaryKnob** knobs,
                 ch_t num_knobs, RotaryKnobBank** knob_banks, ch_t num_banks,
@@ -99,7 +99,7 @@ class Unicontroller {
   LEDRGB** GetRgbLeds();
 
   /* Sets the RGB color mix for the LED. */
-  void SetColorBalance(UI1 r, UI1 g, UI1 b);
+  void SetColorBalance(UIA r, UIA g, UIA b);
 
   /* Update interrupt for the SPI port.
   FastDebouncer returns an XOR containing the state of which switches
@@ -116,16 +116,16 @@ class Unicontroller {
   void UpdateSpiByte();
 
   /* Gets the timer count in microseconds. */
-  SI4 GetTimerCount();
+  SIC GetTimerCount();
 
  private:
-  UI1 brightness_,      //< Monochrome LED brightness.
+  UIA brightness_,      //< Monochrome LED brightness.
       red_mix_,         //< Red LED mix.
       green_mix_,       //< Green LED mix.
       blue_mix_;        //< Blue LED mix.
-  SI2 pulse_count_,     //< PWM counter.
+  SIB pulse_count_,     //< PWM counter.
       num_pulses_;      //< PWM pulses per cycle(rows * 256).
-  ch_t spi_index_,      //< Index of the current SPI UI1.
+  ch_t spi_index_,      //< Index of the current SPI UIA.
       longest_chain_,   //< Longest SPI chain length.
       channel_count_,   //< Number of channels.
       num_leds_,        //< Number of Led(s).
@@ -146,7 +146,7 @@ class Unicontroller {
   Pot** pots_;                         //< Pointers to Pot(s).
   IoExpander** extra_io_;              //< Pointers to IoExpander(s).
   // PortIn              ** ports_in_;      //< Number of PortIn(s).
-  UI1* mixer_;  //< Mixer channels.
+  UIA* mixer_;  //< Mixer channels.
 };              //< class Unicontroller
 
 }  // namespace _

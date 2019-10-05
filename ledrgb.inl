@@ -1,13 +1,13 @@
-/* IGEEK for mbed @version 0.x
-@link    https://github.com/kabuki-starship/igeek.mbed.git
-@file    /ledrgb.inl
+/* Kabuki Tek Toolkit @version 0.x
+@link    https://github.com/kabuki-starship/kabuki.toolkit.tek.git
+@file    /led_rgb.inl
 @author  Cale McCollough <https://calemccollough.github.io>
-@license Copyright (C) 2014-9 Cale McCollough; all right reserved (R). 
-This Source Code Form is subject to the terms of the Mozilla Public License, 
-v. 2.0. If a copy of the MPL was not distributed with this file, You can 
-obtain one at https://mozilla.org/MPL/2.0/. */
+@license Copyright 2019 (C) Kabuki Starship (TM) <kabukistarship.com>.
+This Source Code Form is subject to the terms of the Mozilla Public License, v. 
+2.0. If a copy of the MPL was not distributed with this file, You can obtain one
+at <https://mozilla.org/MPL/2.0/>. */
 
-#include "c_ledrgb.h"
+#include "ledrgb.h"
 //#include "../script/color.h"
 
 namespace _ {
@@ -24,7 +24,7 @@ CRGBAUI4 LEDRGB::GetColor() { return color_; }
 
 void LEDRGB::SetColor(CRGBAUI4 value) { color_ = value; }
 
-UI1 LEDRGB::GetRed() { return (UI1)color_; }
+UIA LEDRGB::GetRed() { return (UIA)color_; }
 
 void LEDRGB::SetRed(CRGBAUI4 value) {
   CRGBAUI4 color = 0xffff00ff;  //< Mask for removing red channel.
@@ -32,7 +32,7 @@ void LEDRGB::SetRed(CRGBAUI4 value) {
   color |= value << 8;         //< Add the new red channel.
 }
 
-UI1 LEDRGB::GetGreen() { return (UI1)(color_ >> 8); }
+UIA LEDRGB::GetGreen() { return (UIA)(color_ >> 8); }
 
 void LEDRGB::SetGreen(CRGBAUI4 value) {
   CRGBAUI4 color = 0xffff00ff;  //< Mask for removing green channel.
@@ -40,7 +40,7 @@ void LEDRGB::SetGreen(CRGBAUI4 value) {
   color |= value << 8;         //< Add the new green channel.
 }
 
-UI1 LEDRGB::GetBlue() { return (UI1)(color_ >> 16); }
+UIA LEDRGB::GetBlue() { return (UIA)(color_ >> 16); }
 
 void LEDRGB::SetBlue(CRGBAUI4 value) {
   CRGBAUI4 color = 0xff00ffff;  //< Mask for removing blue channel.
@@ -48,7 +48,7 @@ void LEDRGB::SetBlue(CRGBAUI4 value) {
   color |= value << 8;         //< Add the new blue channel.
 }
 
-UI1 LEDRGB::GetBrightness() { return (UI1)(color_ >> 24); }
+UIA LEDRGB::GetBrightness() { return (UIA)(color_ >> 24); }
 
 void LEDRGB::SetBrightness(CRGBAUI4 value) {
   CRGBAUI4 color = 0x00ffffff;  //< Mask for removing brightness channel.

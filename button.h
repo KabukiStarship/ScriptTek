@@ -1,16 +1,16 @@
-/* IGEEK for mbed @version 0.x
-@link    https://github.com/kabuki-starship/igeek.mbed.git
+/* Kabuki Tek Toolkit @version 0.x
+@link    https://github.com/kabuki-starship/kabuki.toolkit.tek.git
 @file    /button.h
 @author  Cale McCollough <https://calemccollough.github.io>
-@license Copyright (C) 2014-9 Cale McCollough; all right reserved (R). 
-This Source Code Form is subject to the terms of the Mozilla Public License, 
-v. 2.0. If a copy of the MPL was not distributed with this file, You can 
-obtain one at https://mozilla.org/MPL/2.0/. */
+@license Copyright 2019 (C) Kabuki Starship (TM) <kabukistarship.com>.
+This Source Code Form is subject to the terms of the Mozilla Public License, v. 
+2.0. If a copy of the MPL was not distributed with this file, You can obtain one
+at <https://mozilla.org/MPL/2.0/>. */
 
 #pragma once
-#include <pch.h>
-#ifndef IGEEK_MBED_SENSOR_BUTTON
-#define IGEEK_MBED_SENSOR_BUTTON
+#include <module_config.h>
+#ifndef KABUKI_TEK_SENSOR_BUTTON
+#define KABUKI_TEK_SENSOR_BUTTON
 
 #include "mbed.h"
 
@@ -18,7 +18,7 @@ namespace _ {
 
 /* A button stored as an offset.
 Buttons are composed of a unsigned integer type that stores the bit offset
-from the Controller. This bit offset then gets translated to a UI1 offset
+from the Controller. This bit offset then gets translated to a UIA offset
 and a mask through some bit shifting.
 */
 class Button {
@@ -27,10 +27,10 @@ class Button {
   Button(offset_t bit);
 
   /* Gets the state of the button. */
-  inline UI1 GetState(UI1* digital_ins);
+  inline UIA GetState(UIA* digital_ins);
 
   /* Polls the state of the switch using the debounced XOR. */
-  inline void Poll(UI1* debounced_xor);
+  inline void Poll(UIA* debounced_xor);
 
   /* Script operations. */
   const _::Operation* Star(char_t index, _::Expr* expr);

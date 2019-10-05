@@ -1,6 +1,6 @@
 /* Kabuki Tek Toolkit @version 0.x
 @link    https://github.com/kabuki-starship/kabuki.toolkit.tek.git
-@file    /octows28xx.h
+@file    /tests/01_bar.hpp
 @author  Cale McCollough <https://calemccollough.github.io>
 @license Copyright 2019 (C) Kabuki Starship (TM) <kabukistarship.com>.
 This Source Code Form is subject to the terms of the Mozilla Public License, v. 
@@ -9,18 +9,24 @@ at <https://mozilla.org/MPL/2.0/>. */
 
 #pragma once
 #include <module_config.h>
-#ifndef KABUKI_TEK_OCTOWS28XX
-#define KABUKI_TEK_OCTOWS28XX 1
 
-namespace _ {
-
-/* 8-Channel address LED controller (stub). */
-class OctoWS28xx {
- public:
-  /* Does nothing. */
-  OctoWS28xx() {}
-
- private:
-};
-}  // namespace _
+#if SEAM == UNICONTROLLER_FIRMWARE_0
+#include "module_debug.inl"
+#else
+#include "module_release.inl"
 #endif
+
+using namespace _;
+
+namespace project { namespace unicontroller_firmware { 
+inline const CHA* Bar (CHA* seam_log, CHA* seam_end, const CHA* args) {
+#if SEAM >= UNICONTROLLER_FIRMWARE_0
+  A_TEST_BEGIN;
+
+  
+
+#endif
+  return 0;
+}
+}  //< namespace unicontroller_firmware
+}  //< namespace project

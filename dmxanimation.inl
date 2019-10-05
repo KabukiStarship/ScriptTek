@@ -1,17 +1,17 @@
-/* IGEEK for mbed @version 0.x
-@link    https://github.com/kabuki-starship/igeek.mbed.git
-@file    /dmxanimation.inl
+/* Kabuki Tek Toolkit @version 0.x
+@link    https://github.com/kabuki-starship/kabuki.toolkit.tek.git
+@file    /dmx_animation.inl
 @author  Cale McCollough <https://calemccollough.github.io>
-@license Copyright (C) 2014-9 Cale McCollough; all right reserved (R). 
-This Source Code Form is subject to the terms of the Mozilla Public License, 
-v. 2.0. If a copy of the MPL was not distributed with this file, You can 
-obtain one at https://mozilla.org/MPL/2.0/. */
+@license Copyright 2019 (C) Kabuki Starship (TM) <kabukistarship.com>.
+This Source Code Form is subject to the terms of the Mozilla Public License, v. 
+2.0. If a copy of the MPL was not distributed with this file, You can obtain one
+at <https://mozilla.org/MPL/2.0/>. */
 
-#include "c_dmxanimation.h"
+#include "dmxanimation.h"
 
 namespace _ {
 
-DmxAnimation::DmxAnimation(UI4 kChannelCount, UI4 NumChases, UI4 NumVariants)
+DmxAnimation::DmxAnimation(UIC kChannelCount, UIC NumChases, UIC NumVariants)
     : param1_(0),
       param2_(0),
       param3_(0),
@@ -28,24 +28,24 @@ DmxAnimation::DmxAnimation(UI4 kChannelCount, UI4 NumChases, UI4 NumVariants)
 
 void DmxAnimation::ResetAnimation() {}
 
-void DmxAnimation::SetChaseNumber(UI4 Index) {
+void DmxAnimation::SetChaseNumber(UIC Index) {
   if (Index > num_chases_) return;
 
   current_chase_ = Index;
 }
 
-void DmxAnimation::SetChannelData(UI2 channel, UI1 data) {}
+void DmxAnimation::SetChannelData(UIB channel, UIA data) {}
 
 void DmxAnimation::SendScene() {
   // put  (scene, );
 }
 
-void DmxAnimation::SetChase(UI1 chaseNumber) {}
+void DmxAnimation::SetChase(UIA chaseNumber) {}
 
 void DmxAnimation::RandomizeSceneVariant() {}
 
-void DmxAnimation::SetRGBColor(UI2 channel, CRGBAUI4 color) {
-  const UI2 rGBChannelCutoff = 512 - 9;
+void DmxAnimation::SetRGBColor(UIB channel, CRGBAUI4 color) {
+  const UIB rGBChannelCutoff = 512 - 9;
   //< We need 9 bytes in our cue for this operation.
 
   if (channel > rGBChannelCutoff) {
@@ -60,16 +60,16 @@ void DmxAnimation::SetRGBColor(UI2 channel, CRGBAUI4 color) {
   // The DMX protocol consist of a 9-bit channel, and an 8-bit data value.
 
   // Decode the channel into LSB and MSB.
-  UI1 channelLSB = (UI1)channel, channelMSb = (UI1)(channel & 0x100) >> 8;
+  UIA channelLSB = (UIA)channel, channelMSb = (UIA)(channel & 0x100) >> 8;
 
   // The cue is a FIFO, so cue up the data, followed by the channel LSB, then
   // MSB.
 
   // The following is an unrolled loop for greater efficiency at runtime.
 
-  UI1* tempByte = 0;  // scene[sceneIndex++];
+  UIA* tempByte = 0;  // scene[sceneIndex++];
   // Cue red value
-  *tempByte = (UI1)color & 0xFF;
+  *tempByte = (UIA)color & 0xFF;
   *(++tempByte) = channelLSB;
   *(++tempByte) = channelMSb;
 
@@ -81,7 +81,7 @@ void DmxAnimation::SetRGBColor(UI2 channel, CRGBAUI4 color) {
     ++channelLSB;
 
   // Cue green value
-  *(++tempByte) = (UI1)(color & 0xFF00) >> 8;
+  *(++tempByte) = (UIA)(color & 0xFF00) >> 8;
   *(++tempByte) = channelLSB;
   *(++tempByte) = channelMSb;
 
@@ -93,15 +93,15 @@ void DmxAnimation::SetRGBColor(UI2 channel, CRGBAUI4 color) {
     ++channelLSB;
 
   // Cue blue value
-  *(++tempByte) = (UI1)(color & 0xFF0000) >> 16;
+  *(++tempByte) = (UIA)(color & 0xFF0000) >> 16;
   *(++tempByte) = channelLSB;
   *(++tempByte) = channelMSb;
 }
 
-void DmxAnimation::SetColor(UI2 channel, UI1 Red, UI1 Green, UI1 Blue) {
+void DmxAnimation::SetColor(UIB channel, UIA Red, UIA Green, UIA Blue) {
   if (channel > 511 - 3) {
     // We need 3 channels for an RGB color.
-    printf("Error in SetColor  (UI2, CRGBAUI4): channel out of range!\r\n");
+    printf("Error in SetColor  (UIB, CRGBAUI4): channel out of range!\r\n");
     return;
   }
 
@@ -110,45 +110,45 @@ void DmxAnimation::SetColor(UI2 channel, UI1 Red, UI1 Green, UI1 Blue) {
   data_[channel + 2] = Blue;
 }
 
-void DmxAnimation::SetColor(UI2 channel, CRGBAUI4 color) {
+void DmxAnimation::SetColor(UIB channel, CRGBAUI4 color) {
   if (channel > 511 - 3) {
     // We need 3 channels for an RGB color.
-    printf("Error in SetColor  (UI2, CRGBAUI4): channel out of range!\r\n");
+    printf("Error in SetColor  (UIB, CRGBAUI4): channel out of range!\r\n");
     return;
   }
 
-  data_[channel] = (UI1)(color & 0xFF0000) >> 16;   //< Red
-  data_[channel + 1] = (UI1)(color & 0xFF00) >> 8;  //< Green
-  data_[channel + 2] = (UI1)(color & 0xFF);         //< Blue
+  data_[channel] = (UIA)(color & 0xFF0000) >> 16;   //< Red
+  data_[channel + 1] = (UIA)(color & 0xFF00) >> 8;  //< Green
+  data_[channel + 2] = (UIA)(color & 0xFF);         //< Blue
 }
 
 /*
-void DmxAnimation::SetColor  (UI2 channel, CRGBAUI4 color)
+void DmxAnimation::SetColor  (UIB channel, CRGBAUI4 color)
 {
     if  (channel > 511 - 3)             //< We need 3 channels for an RGB color.
     {
-        printf ("Error in SetColor  (UI2, CRGBAUI4): channel out of range!\r\n");
+        printf ("Error in SetColor  (UIB, CRGBAUI4): channel out of range!\r\n");
         return;
     }
-    FP4 alphaValue =  (FP4) ((color & 0xFF000000) >> 24),
-    Red     =  (FP4) ((color & 0xFF0000) >> 16),
-    Green   =  (FP4) ((color & 0xFF00) >> 8),
-    Blue    =  (FP4)  (color & 0xFF);
+    FPC alphaValue =  (FPC) ((color & 0xFF000000) >> 24),
+    Red     =  (FPC) ((color & 0xFF0000) >> 16),
+    Green   =  (FPC) ((color & 0xFF00) >> 8),
+    Blue    =  (FPC)  (color & 0xFF);
 
-    data[channel    ] =  (UI1)  (Red   * alphaValue);    //< Red
-    data[channel + 1] =  (UI1)  (Green * alphaValue);    //< Green
-    data[channel + 2] =  (UI1)  (Blue  * alphaValue);    //< Blue
+    data[channel    ] =  (UIA)  (Red   * alphaValue);    //< Red
+    data[channel + 1] =  (UIA)  (Green * alphaValue);    //< Green
+    data[channel + 2] =  (UIA)  (Blue  * alphaValue);    //< Blue
 }
 
 void DmxAnimation::SetAllColors  (CRGBAUI4 color)
 {
-    for  (SI4 i = 0; i < numBasePairs; ++i)
+    for  (SIC i = 0; i < numBasePairs; ++i)
     {
         SetColor  (nucleobaseB[i], color);
         SetColor  (nucleobaseT[i], color);
     }
 
-    for  (SI4 i = 0; i < numBasePairs; ++i)
+    for  (SIC i = 0; i < numBasePairs; ++i)
     {
         SetColor  (backboneB[i], color);
         SetColor  (backboneT[i], color);
@@ -158,13 +158,13 @@ void DmxAnimation::SetAllColors  (CRGBAUI4 color)
 
 void DmxAnimation::SetAllColors(CRGBAUI4 color) {
   /*
-  for  (SI4 i = 0; i < numChannels; ++i)
+  for  (SIC i = 0; i < numChannels; ++i)
   {
   SetColor  (nucleobaseB[i], color);
   SetColor  (nucleobaseT[i], color);
   }
 
-  for  (SI4 i = 0; i < numBasePairs; ++i)
+  for  (SIC i = 0; i < numBasePairs; ++i)
   {
   SetColor  (backboneB[i], color);
   SetColor  (backboneT[i], color);
@@ -172,8 +172,8 @@ void DmxAnimation::SetAllColors(CRGBAUI4 color) {
   */
 }
 
-CRGBAUI4 DmxAnimation::IncreaseBrightness(CRGBAUI4 color, UI1 brightness_change) {
-  UI4 brightness = (color & 0xFF000000) >> 24;
+CRGBAUI4 DmxAnimation::IncreaseBrightness(CRGBAUI4 color, UIA brightness_change) {
+  UIC brightness = (color & 0xFF000000) >> 24;
   //< Mask off MSB and shift into LSB.
   color = (color & 0x00FFFFFF);
   //< Clear out the alpha Channel
@@ -184,8 +184,8 @@ CRGBAUI4 DmxAnimation::IncreaseBrightness(CRGBAUI4 color, UI1 brightness_change)
   return color & brightness;
 }
 
-CRGBAUI4 DmxAnimation::DecreaseBrightness(CRGBAUI4 color, UI1 brightness_change) {
-  UI4 brightness = (color & 0xFF000000) >> 24;
+CRGBAUI4 DmxAnimation::DecreaseBrightness(CRGBAUI4 color, UIA brightness_change) {
+  UIC brightness = (color & 0xFF000000) >> 24;
   //< Mask off MSB and shift into LSB.
   color = (color & 0x00FFFFFF);
   //< Clear out the alpha Channel
@@ -197,7 +197,7 @@ CRGBAUI4 DmxAnimation::DecreaseBrightness(CRGBAUI4 color, UI1 brightness_change)
 
 void DmxAnimation::RandomizeVariant() {
   srand(time(0));
-  current_variant_ = (UI1)rand() % 256;
+  current_variant_ = (UIA)rand() % 256;
 }
 
 }  // namespace _

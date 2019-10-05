@@ -1,16 +1,16 @@
-/* IGEEK for mbed @version 0.x
-@link    https://github.com/kabuki-starship/igeek.mbed.git
+/* Kabuki Tek Toolkit @version 0.x
+@link    https://github.com/kabuki-starship/kabuki.toolkit.tek.git
 @file    /debouncer.h
 @author  Cale McCollough <https://calemccollough.github.io>
-@license Copyright (C) 2014-9 Cale McCollough; all right reserved (R). 
-This Source Code Form is subject to the terms of the Mozilla Public License, 
-v. 2.0. If a copy of the MPL was not distributed with this file, You can 
-obtain one at https://mozilla.org/MPL/2.0/. */
+@license Copyright 2019 (C) Kabuki Starship (TM) <kabukistarship.com>.
+This Source Code Form is subject to the terms of the Mozilla Public License, v. 
+2.0. If a copy of the MPL was not distributed with this file, You can obtain one
+at <https://mozilla.org/MPL/2.0/>. */
 
 #pragma once
-#include <pch.h>
-#ifndef IGEEK_MBED_SENSORS_DEBOUNCER
-#define IGEEK_MBED_SENSORS_DEBOUNCER
+#include <module_config.h>
+#ifndef KABUKI_TEK_SENSORS_DEBOUNCER
+#define KABUKI_TEK_SENSORS_DEBOUNCER
 
 namespace _ {
 
@@ -34,18 +34,18 @@ DigitalOut Spi1CS (D10);
 Ticker pollInputsTicker;
 PortIn GPIPort (PortA);
 
-CH1 InputStates[5];
-Debouncer<SI4> GPIPortDebouncer ((SI4*)&InputStates[0]);
-Debouncer<CH1> ShiftRegisterDebouncer (&InputStates[4]);
+CHA InputStates[5];
+Debouncer<SIC> GPIPortDebouncer ((SIC*)&InputStates[0]);
+Debouncer<CHA> ShiftRegisterDebouncer (&InputStates[4]);
 
 void PollInputsHandler () {
         Spi1CS = 1;
-        CH1 shift = ShiftRegisterDebouncer.Debounce (Spi1.write (0));
-        SI4 portA = GPIPortDebouncer.Debounce (GPIPort);
+        CHA shift = ShiftRegisterDebouncer.Debounce (Spi1.write (0));
+        SIC portA = GPIPortDebouncer.Debounce (GPIPort);
         Spi1CS = 0;
 }
 
-SI4 main ()
+SIC main ()
 {
         pollInputsTicker.attach (&pollInputsHandler, 1.0f / 100.0f);
         Spi1.format (8,3);
@@ -104,8 +104,8 @@ PortIn GPIPort (PortA);
 
 void pollInputsHandler () {
   Spi1CS = 1;
-  CH1 dataIn = ShiftRegisterDebouncer.debounce (Spi1.write (0));
-  SI4 portA = GPIPortDebouncer.debounce (GPIPort);
+  CHA dataIn = ShiftRegisterDebouncer.debounce (Spi1.write (0));
+  SIC portA = GPIPortDebouncer.debounce (GPIPort);
   if (dataIn & 0b001) RedLED = RedLED == 0?1:0;
   if (dataIn & 0b010) GreenLED = GreenLED == 0?1:0;
   if (dataIn & 0b100) BlueLED = BlueLED == 0?1:0;
@@ -113,8 +113,8 @@ void pollInputsHandler () {
   printf ("%x%x", dataIn, portA);
 }
 
-SI4 main () {
-  static const FP4 updateInterval = 0.010f;
+SIC main () {
+  static const FPC updateInterval = 0.010f;
   PrintLine (" ", '=');
   pollInputsTicker.attach (&pollInputsHandler, updateInterval);
   RedLED = GreenLED = BlueLED = 1;

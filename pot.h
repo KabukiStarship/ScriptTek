@@ -1,15 +1,15 @@
-/* IGEEK for mbed @version 0.x
-@link    https://github.com/kabuki-starship/igeek.mbed.git
+/* Kabuki Tek Toolkit @version 0.x
+@link    https://github.com/kabuki-starship/kabuki.toolkit.tek.git
 @file    /pot.h
 @author  Cale McCollough <https://calemccollough.github.io>
-@license Copyright (C) 2014-9 Cale McCollough; all right reserved (R). 
-This Source Code Form is subject to the terms of the Mozilla Public License, 
-v. 2.0. If a copy of the MPL was not distributed with this file, You can 
-obtain one at https://mozilla.org/MPL/2.0/. */
+@license Copyright 2019 (C) Kabuki Starship (TM) <kabukistarship.com>.
+This Source Code Form is subject to the terms of the Mozilla Public License, v. 
+2.0. If a copy of the MPL was not distributed with this file, You can obtain one
+at <https://mozilla.org/MPL/2.0/>. */
 
 #pragma once
-#ifndef IGEEK_MBED_POT
-#define IGEEK_MBED_POT 1
+#ifndef KABUKI_TEK_POT
+#define KABUKI_TEK_POT 1
 
 namespace _ {
 
@@ -17,7 +17,7 @@ namespace _ {
   
 
 @code
-Pot<SI2> pot
+Pot<SIB> pot
 @endcode
 */
 class KABUKI Pot {
@@ -26,8 +26,8 @@ class KABUKI Pot {
   Pot(ch_t channel, PinName adc_pin);
 
   /* Polls the pot. */
-  inline void Poll(UI2 new_value, _::Expr* expr, UI2 value, UI2 min_value,
-                   UI2 max_channel);
+  inline void Poll(UIB new_value, _::Expr* expr, UIB value, UIB min_value,
+                   UIB max_channel);
 
   /* Script operations. */
   const _::Operation* Star(char_t index, _::Expr* expr);

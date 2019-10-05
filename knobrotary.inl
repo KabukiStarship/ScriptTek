@@ -1,11 +1,11 @@
-/* IGEEK for mbed @version 0.x
-@link    https://github.com/kabuki-starship/igeek.mbed.git
-@file    /knobrotary.inl
+/* Kabuki Tek Toolkit @version 0.x
+@link    https://github.com/kabuki-starship/kabuki.toolkit.tek.git
+@file    /knob_rotary.inl
 @author  Cale McCollough <https://calemccollough.github.io>
-@license Copyright (C) 2014-9 Cale McCollough; all right reserved (R). 
-This Source Code Form is subject to the terms of the Mozilla Public License, 
-v. 2.0. If a copy of the MPL was not distributed with this file, You can 
-obtain one at https://mozilla.org/MPL/2.0/. */
+@license Copyright 2019 (C) Kabuki Starship (TM) <kabukistarship.com>.
+This Source Code Form is subject to the terms of the Mozilla Public License, v. 
+2.0. If a copy of the MPL was not distributed with this file, You can obtain one
+at <https://mozilla.org/MPL/2.0/>. */
 
 #include "rotaryknob.h"
 
@@ -18,29 +18,29 @@ RotaryKnob::RotaryKnob(ch_t channel, offset_t a, offset_t b)
   //     Encoders are not word aligned!");
 }
 
-SI2 RotaryKnob::GetAccelerationMultiplier(SI4 time) {
+SIB RotaryKnob::GetAccelerationMultiplier(SIC time) {
   /*
-  static const UI1 curves[3][_TekHMIHMI_NumAccellorationCurves] = {
+  static const UIA curves[3][_TekHMIHMI_NumAccellorationCurves] = {
   {
 
-  SI4 timeDelta = currentTime - lastMoveTime,
+  SIC timeDelta = currentTime - lastMoveTime,
   lastMoveTime = currentTime;
   */
   return 0;
 }
 
 void RotaryKnob::Poll(Controller* controller, offset_t channel,
-                      UI1* debounced_xor, SI4 microseconds) {
+                      UIA* debounced_xor, SIC microseconds) {
   offset_t input_a = in_a_, input_b = in_b_;
 
-  UI1 mask_a = debounced_xor[input_a >> kBitToByteShift] &
+  UIA mask_a = debounced_xor[input_a >> kBitToByteShift] &
                (1 << (input_a & kBitNumberMask)),
       mask_b = debounced_xor[input_b >> kBitToByteShift] &
                (1 << (input_b & kBitNumberMask));
 
   if ((mask_a & mask_b) == 0) return;  //< No change in state.
 
-  // SI2 value =  (maskA ? -1 : 1) *
+  // SIB value =  (maskA ? -1 : 1) *
   //                 GetAccelerationMultiplier (microseconds);
 }
 
