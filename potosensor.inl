@@ -1,11 +1,11 @@
-/* IGEEK for mbed @version 0.x
-@link    https://github.com/kabuki-starship/igeek.mbed.git
-@file    /photosensor.inl
+/* Kabuki Tek Toolkit @version 0.x
+@link    https://github.com/kabuki-starship/kabuki.toolkit.tek.git
+@file    /sensor_photo.inl
 @author  Cale McCollough <https://calemccollough.github.io>
-@license Copyright (C) 2014-9 Cale McCollough; all right reserved (R). 
-This Source Code Form is subject to the terms of the Mozilla Public License, 
-v. 2.0. If a copy of the MPL was not distributed with this file, You can 
-obtain one at https://mozilla.org/MPL/2.0/. */
+@license Copyright 2019 (C) Kabuki Starship (TM) <kabukistarship.com>.
+This Source Code Form is subject to the terms of the Mozilla Public License, v. 
+2.0. If a copy of the MPL was not distributed with this file, You can obtain one
+at <https://mozilla.org/MPL/2.0/>. */
 
 #include "photosensor.h"
 
@@ -15,7 +15,7 @@ Photosensor::Photosensor(PinName pin) : input_(pin) {
   /// Nothing to do here!
 }
 
-FP4 Photosensor::Read() { return input_.read(); }
+FPC Photosensor::Read() { return input_.read(); }
 
 const Operation* Photosensor::Star(char_t index, Expr* expr) {
   static const Operation This = {
@@ -30,13 +30,13 @@ const Operation* Photosensor::Star(char_t index, Expr* expr) {
     case '?':
       return &This;
     case 'A': {
-      static const Operation OpA = {"Read", Params<0>(), Params<1, UI2>(),
+      static const Operation OpA = {"Read", Params<0>(), Params<1, UIB>(),
                                     "Reads the light sensor.", 0};
       if (!expr) return &OpA;
 
-      UI2 value = input_.read_u16();
+      UIB value = input_.read_u16();
 
-      return Result(expr, Params<1, UI2>(), Args(args, &value));
+      return Result(expr, Params<1, UIB>(), Args(args, &value));
     }
   }
   return nullptr;

@@ -1,20 +1,20 @@
-/* IGEEK for mbed @version 0.x
-@link    https://github.com/kabuki-starship/igeek.mbed.git
-@file    /tek/color.h
+/* Kabuki Tek Toolkit @version 0.x
+@link    https://github.com/kabuki-starship/kabuki.toolkit.tek.git
+@file    /color.h
 @author  Cale McCollough <https://calemccollough.github.io>
-@license Copyright (C) 2014-9 Cale McCollough; all right reserved (R). 
-This Source Code Form is subject to the terms of the Mozilla Public License, 
-v. 2.0. If a copy of the MPL was not distributed with this file, You can 
-obtain one at https://mozilla.org/MPL/2.0/. */
+@license Copyright 2019 (C) Kabuki Starship (TM) <kabukistarship.com>.
+This Source Code Form is subject to the terms of the Mozilla Public License, v. 
+2.0. If a copy of the MPL was not distributed with this file, You can obtain one
+at <https://mozilla.org/MPL/2.0/>. */
 
 #pragma once
-#include <pch.h>
+#include <module_config.h>
 #if SEAM >= KABUKI_FEATURES_LIGHTS_1
 #ifndef KABUKI_FEATURES_LIGHTS_COLOR_C
 #define KABUKI_FEATURES_LIGHTS_COLOR_C 1
 
 // A ABGR Color where A is brightness.
-typedef UI4 CRGBAUI4;
+typedef UIC CRGBAUI4;
 
 namespace _ {
 
@@ -38,7 +38,7 @@ typedef enum {
     Red         = 0x0000FF,
     Maroon      = 0x800000,
     Brown       = 0xA52A2A,
-    Black       = 0x000000      //< Black at the end as nil-term CH1.
+    Black       = 0x000000      //< Black at the end as nil-term CHA.
 } PresetColor;
 
 enum {
@@ -58,63 +58,63 @@ const CRGBAUI4* RainbowColors ();
 const CRGBAUI4* PresetColors ();
 
 /* Gets one of the rainbow colors. */
-CRGBAUI4 ColorRainbow (SI4 index);
+CRGBAUI4 ColorRainbow (SIC index);
 
 /* Gets one of the preset colors. */
-CRGBAUI4 ColorPreset (SI4 index);
+CRGBAUI4 ColorPreset (SIC index);
 
 /* Gets a random preset colors. */
 CRGBAUI4 RandomPresetColor ();
 
 /* Gets a random color. */
-CRGBAUI4 RandomColor (SI4 index);
+CRGBAUI4 RandomColor (SIC index);
     
 /* Mixes the color with the  */
 CRGBAUI4 ColorMix (CRGBAUI4 a, CRGBAUI4 b);
 
 /* Increases the alpha value of the given color by the given delta. */
-CRGBAUI4 ChangeBrightness (CRGBAUI4 color, SI4 delta);
+CRGBAUI4 ChangeBrightness (CRGBAUI4 color, SIC delta);
 
 /* Increases the alpha value of the given color by the given delta. */
-CRGBAUI4 DecreaseBrightness (CRGBAUI4 color, SI4 delta);
+CRGBAUI4 DecreaseBrightness (CRGBAUI4 color, SIC delta);
 
 /* Creates a Color from the given RGB values. */
-CRGBAUI4 ColorMake (UI1 red, UI1 green, UI1 blue);
+CRGBAUI4 ColorMake (UIA red, UIA green, UIA blue);
 
 /* Creates a Color from the given RGBA values. */
-CRGBAUI4 ColorMake (UI1 red, UI1 green, UI1 blue, UI1 alpha);
+CRGBAUI4 ColorMake (UIA red, UIA green, UIA blue, UIA alpha);
 
 /* Gets the red value. */
-UI1 ColorGetRed (CRGBAUI4 color);
+UIA ColorGetRed (CRGBAUI4 color);
 
 /* Sets the red value. */
-void ColorSetRed (CRGBAUI4 color, UI1 value);
+void ColorSetRed (CRGBAUI4 color, UIA value);
 
 /* Gets the green value. */
-UI1 ColorGetGreen (CRGBAUI4 color);
+UIA ColorGetGreen (CRGBAUI4 color);
 
 /* Sets the green value. */
-void ColorSetGreen (CRGBAUI4 color, UI1 value);
+void ColorSetGreen (CRGBAUI4 color, UIA value);
 
 /* Gets the blue value. */
-UI1 ColorGetBlue (CRGBAUI4 color);
+UIA ColorGetBlue (CRGBAUI4 color);
 
 /* Sets the blue value. */
-void ColorSetBlue (CRGBAUI4 color, UI1 value);
+void ColorSetBlue (CRGBAUI4 color, UIA value);
 
 /* Gets the alpha value. */
-UI1 ColorGetAlpha (CRGBAUI4 color);
+UIA ColorGetAlpha (CRGBAUI4 color);
 
 /* Sets the alpha value. */
-void ColorSetAlpha (CRGBAUI4 color, UI1 value);
+void ColorSetAlpha (CRGBAUI4 color, UIA value);
 
 /* Converts this color to HSV. */
-void ColorToHSV (CRGBAUI4 color, FP4& fR, FP4& fG, FP4 fB,
-                 FP4& fH, FP4& fS, FP4& fV);
+void ColorToHSV (CRGBAUI4 color, FPC& fR, FPC& fG, FPC fB,
+                 FPC& fH, FPC& fS, FPC& fV);
 
 /* Sets this color to the HSV values. */
-void ColorSetHSV (CRGBAUI4 color, FP4& fR, FP4& fG, FP4& fB,
-                  FP4& fH, FP4& fS, FP4& fV);
+void ColorSetHSV (CRGBAUI4 color, FPC& fR, FPC& fG, FPC& fB,
+                  FPC& fH, FPC& fS, FPC& fV);
 
 } //< namespace _
 #endif

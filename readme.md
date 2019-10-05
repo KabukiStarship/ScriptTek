@@ -1,13 +1,13 @@
-# igeek.mbed
+# Kabuki Tek Toolkit
 
-The kabuki.tek is an Embedded-C++ Script2 and mbed Firmware Development Kit (FDK) and simulation environment for the [Interactive Gym Environment and Educational Kit (IGEEK)](https://github.com/kabuki-starship/igeek).
+The Kabuki Tek Toolkit (kabuki.tek) is an Embedded-C++ [Script2™](github.com/kabuki-starship/script2) Firmware Development Kit (FDK).
 
 ## Mission and Vision
 
-The mission of IGEEK.mbed is to help you create robust firmware drivers with mbed faster and more reliably with 3D simulations and AI. Our vision is to create a virtualized robotics ecosystem for IGEEK with components that can swapped out dynamically and remotely.
+The mission of kabuki.tek is to help you create robust firmware drivers faster and more reliably with Script2. Our vision is to create a the [KABUKI_TEK™ Tek Sandbox](https://github.com/kabuki-starship/KABUKI_TEK) to create, test, and simulate robots and greentech hardware.
 
 ## License
 
-Copyright 2014-9 (C) [Cale McCollough](https://calemccollough.github.io); all rights reserved (R).
+Copyright 2014-9 © [Kabuki Starship™](https://kabukistarship.com).
 
 This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at <https://mozilla.org/MPL/2.0/>.

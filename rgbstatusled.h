@@ -1,16 +1,16 @@
-/* IGEEK for mbed @version 0.x
-@link    https://github.com/kabuki-starship/igeek.mbed.git
-@file    /rgbstatusled.h
+/* Kabuki Tek Toolkit @version 0.x
+@link    https://github.com/kabuki-starship/kabuki.toolkit.tek.git
+@file    /led_status_rgb.h
 @author  Cale McCollough <https://calemccollough.github.io>
-@license Copyright (C) 2014-9 Cale McCollough; all right reserved (R). 
-This Source Code Form is subject to the terms of the Mozilla Public License, 
-v. 2.0. If a copy of the MPL was not distributed with this file, You can 
-obtain one at https://mozilla.org/MPL/2.0/. */
+@license Copyright 2019 (C) Kabuki Starship (TM) <kabukistarship.com>.
+This Source Code Form is subject to the terms of the Mozilla Public License, v. 
+2.0. If a copy of the MPL was not distributed with this file, You can obtain one
+at <https://mozilla.org/MPL/2.0/>. */
 
 #pragma once
-#include <pch.h>
-#ifndef IGEEK_MBED_LEDS_RGBSTATUSLED
-#define IGEEK_MBED_LEDS_RGBSTATUSLED 1
+#include <module_config.h>
+#ifndef KABUKI_TEK_RGBSTATUSLED
+#define KABUKI_TEK_RGBSTATUSLED 1
 
 namespace _ {
 
@@ -61,14 +61,14 @@ status_led.SetColorA  (Color::);
 
 @endcode
 */
-template <SI4 On, SI4 Off>
+template <SIC On, SIC Off>
 class RGBStatusLED {
  public:
   enum { DefaultBrightness = 128 };
 
   /* Simple constructor. */
   RGBStatusLED(PinName red_pin, PinName green_pin, PinName blue_pin,
-               FP4 blink_delay = 0.2f)
+               FPC blink_delay = 0.2f)
       : frequency(aFrequency),
         red(red_pin),
         green(green_pin),
@@ -183,7 +183,7 @@ class RGBStatusLED {
   }
 
   /* Sets the blink frequency. */
-  void SetFrequency(FP4 value) {
+  void SetFrequency(FPC value) {
     frequency = value;
     blinker.attach(this, &RGBStatusLED::Blink, value);
   }
@@ -192,7 +192,7 @@ class RGBStatusLED {
   void HandleAssert() { FlashRedBlue() }
 
  private:
-  FP4 frequency_;   //< The frequency of the blinking.
+  FPC frequency_;   //< The frequency of the blinking.
   DigitalOut red_,  //< Red LED on the mbed board.
       green_,       //< Green LED on the mbed board.
       blue_;        //< Blue LED on the mbed board.
@@ -221,7 +221,7 @@ InterruptIn Switch3 (SW3);
 
 /* Interrupt handler for SW2. */
 void SW3Handler () {
-    static SI4 counter = 16;
+    static SIC counter = 16;
 
     if (++counter > 15) {
         Status.FlashRedBlue (); counter = 0;
@@ -234,7 +234,7 @@ void SW3Handler () {
     }
 }
 
-SI4 main () {
+SIC main () {
     printf ("\r\nTesting mbed utils.\r\n");
     PrintLine ('-');
 

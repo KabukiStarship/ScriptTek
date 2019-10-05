@@ -1,16 +1,16 @@
-/* IGEEK for mbed @version 0.x
-@link    https://github.com/kabuki-starship/igeek.mbed.git
-@file    /onfig.h
+/* Kabuki Tek Toolkit @version 0.x
+@link    https://github.com/kabuki-starship/kabuki.toolkit.tek.git
+@file    /sesnsor_photo.h
 @author  Cale McCollough <https://calemccollough.github.io>
-@license Copyright (C) 2014-9 Cale McCollough; all right reserved (R). 
-This Source Code Form is subject to the terms of the Mozilla Public License, 
-v. 2.0. If a copy of the MPL was not distributed with this file, You can 
-obtain one at https://mozilla.org/MPL/2.0/. */
+@license Copyright 2019 (C) Kabuki Starship (TM) <kabukistarship.com>.
+This Source Code Form is subject to the terms of the Mozilla Public License, v. 
+2.0. If a copy of the MPL was not distributed with this file, You can obtain one
+at <https://mozilla.org/MPL/2.0/>. */
 
 #pragma once
-#include <pch.h>
-#ifndef IGEEK_MBED_SENSORS_PHOTOSENSOR
-#define IGEEK_MBED_SENSORS_PHOTOSENSOR 1
+#include <module_config.h>
+#ifndef KABUKI_TEK_SENSORS_PHOTOSENSOR
+#define KABUKI_TEK_SENSORS_PHOTOSENSOR 1
 
 namespace _ {
 
@@ -21,7 +21,7 @@ class Photosensor {
   Photosensor(PinName pin);
 
   /* Reads the photosensor. */
-  FP4 Read();
+  FPC Read();
 
   const _::Operation* Star(char_t index, _::Expr* expr);
 

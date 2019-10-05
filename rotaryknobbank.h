@@ -1,19 +1,19 @@
-/* IGEEK for mbed @version 0.x
-@link    https://github.com/kabuki-starship/igeek.mbed.git
-@file    /rotaryknobbank.h
+/* Kabuki Tek Toolkit @version 0.x
+@link    https://github.com/kabuki-starship/kabuki.toolkit.tek.git
+@file    /rotary_knob_bank.h
 @author  Cale McCollough <https://calemccollough.github.io>
-@license Copyright (C) 2014-9 Cale McCollough; all right reserved (R). 
-This Source Code Form is subject to the terms of the Mozilla Public License, 
-v. 2.0. If a copy of the MPL was not distributed with this file, You can 
-obtain one at https://mozilla.org/MPL/2.0/. */
+@license Copyright 2019 (C) Kabuki Starship (TM) <kabukistarship.com>.
+This Source Code Form is subject to the terms of the Mozilla Public License, v. 
+2.0. If a copy of the MPL was not distributed with this file, You can obtain one
+at <https://mozilla.org/MPL/2.0/>. */
 
 #pragma once
-#include <pch.h>
-#ifndef IGEEK_MBED_ROTARYENCODERBANK
-#define IGEEK_MBED_ROTARYENCODERBANK 1
+#include <module_config.h>
+#ifndef KABUKI_TEK_ROTARYENCODERBANK
+#define KABUKI_TEK_ROTARYENCODERBANK 1
 
-#include "c_button.h"
-#include "c_led.h"
+#include "button.h"
+#include "led.h"
 
 namespace _ {
 
@@ -72,7 +72,7 @@ always be on a single shift register but the columns will be stored as a
     
 
 
-There will be both monochrome and RGB LEDs on the same buss, so the UI1
+There will be both monochrome and RGB LEDs on the same buss, so the UIA
 array will be shared by multiple.
 */
 class KABUKI RotaryKnobBank {
@@ -81,10 +81,10 @@ class KABUKI RotaryKnobBank {
   @param num_knobs     Number of rotary encoders.
   @param num_banks     Number of banks.
   @param start_channel The starting channel on the mixer.
-  @param rows          Pointer to row UI1.
+  @param rows          Pointer to row UIA.
   @param columns       Pointer to the array of column bytes. */
   RotaryKnobBank(ch_t num_knobs, ch_t start_channel, ch_t num_banks,
-                 const UI1* rows, const UI1* columns);
+                 const UIA* rows, const UIA* columns);
 
   /* Gets the number of channels this bank controls. */
   ch_t GetNumChannels();
@@ -98,8 +98,8 @@ class KABUKI RotaryKnobBank {
   /* Frame update handler for the LEDs.
   This handler has a counter that counts from 0-255 in an infinite loop.
   Each time around the loop, all of the LEDs get turned on. */
-  void Update(SI2* channel, SI2* min_values, SI2* max_values,
-              UI1* spi_out_bytes, SI2 row, int8_t count);
+  void Update(SIB* channel, SIB* min_values, SIB* max_values,
+              UIA* spi_out_bytes, SIB row, int8_t count);
 
   /* Prints this object to a terminal. */
   Printer& Print(Printer& o) {
@@ -114,15 +114,15 @@ class KABUKI RotaryKnobBank {
         current_bank_,     //< Currently selected bank.
         current_channel_,  //< Current bank start channel in the mixer.
         wiring_config_;    //< RotaryEncoderBank wiring configuration.
-    const UI1 *rows_,      //< Pointer to the array of columns bits.
+    const UIA *rows_,      //< Pointer to the array of columns bits.
         *columns_;         //< Pointer to the array of columns bits.
     Button* buttons_;      //< Pointer to the array of buttons.
     Led* lights_;          //< Pointer to the array of LEDs.
 
     /* Updates the mixer channel number LED ring. */
-    void UpdateChannel(UI2 index, SI2 * channels, SI2 * min_values,
-                       SI2 * max_values, UI1 * spi_out_bytes, UI2 row,
-                       UI1 count);
+    void UpdateChannel(UIB index, SIB * channels, SIB * min_values,
+                       SIB * max_values, UIA * spi_out_bytes, UIB row,
+                       UIA count);
   };
 
   class RotaryEncoderBankOp : public Operand {

@@ -1,7 +1,7 @@
-/* IGEEK for mbed @version 0.x
-@link    https://github.com/kabuki-starship/igeek.mbed.git
+/* Kabuki Tek Toolkit @version 0.x
+@link    https://github.com/kabuki-starship/kabuki.toolkit.tek.git
 @file    /portal.inl
-@author  Cale McCollough <https://calemccollough.github.io>
+@author  Cale McCollough <https://cale-mccollough.github.io>
 @license Copyright (C) 2014-9 Cale McCollough; all right reserved (R). 
 This Source Code Form is subject to the terms of the Mozilla Public License, 
 v. 2.0. If a copy of the MPL was not distributed with this file, You can 
@@ -22,10 +22,10 @@ void I2cPortal::Feed() {
 
 void I2cPortal::Pull() {
   /*
-      //const SI4 addr7bit = 0x48;      // 7-bit I2C address.
-      const SI4 addr8bit = 0x48 << 1; // 8-bit I2C address: 0x90.
+      //const SIC addr7bit = 0x48;      // 7-bit I2C address.
+      const SIC addr8bit = 0x48 << 1; // 8-bit I2C address: 0x90.
 
-      UI1 cmd[80]; //< @todo what size do  I need?
+      UIA cmd[80]; //< @todo what size do  I need?
       cmd[0] = 0x01;
       cmd[1] = 0x00;
       i2c_.write (addr8bit, cmd, 2);
@@ -36,7 +36,7 @@ void I2cPortal::Pull() {
       i2c_.write (addr8bit, cmd, 1);
       i2c_.read (addr8bit, cmd, 2);
 
-      FP4 tmp = (FP4 ((cmd[0] << 8) | cmd[1]) / 256.0);
+      FPC tmp = (FPC ((cmd[0] << 8) | cmd[1]) / 256.0);
       printf ("\n| Temp = %.2f\n", tmp);
       */
 }

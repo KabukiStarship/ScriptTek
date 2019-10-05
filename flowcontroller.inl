@@ -1,22 +1,22 @@
-/* IGEEK for mbed @version 0.x
-@link    https://github.com/kabuki-starship/igeek.mbed.git
-@file    /flowcontroller.inl
+/* Kabuki Tek Toolkit @version 0.x
+@link    https://github.com/kabuki-starship/kabuki.toolkit.tek.git
+@file    /flow_controller.inl
 @author  Cale McCollough <https://calemccollough.github.io>
-@license Copyright (C) 2014-9 Cale McCollough; all right reserved (R). 
-This Source Code Form is subject to the terms of the Mozilla Public License, 
-v. 2.0. If a copy of the MPL was not distributed with this file, You can 
-obtain one at https://mozilla.org/MPL/2.0/. */
+@license Copyright 2019 (C) Kabuki Starship (TM) <kabukistarship.com>.
+This Source Code Form is subject to the terms of the Mozilla Public License, v. 
+2.0. If a copy of the MPL was not distributed with this file, You can obtain one
+at <https://mozilla.org/MPL/2.0/>. */
 
 #include "flowcontroller.h"
 
 namespace _ {
 
-UI4 ConvertGallonsToMilliiters(FP4 Value) { return (UI4)(Value * 3785.41f); }
+UIC ConvertGallonsToMilliiters(FPC Value) { return (UIC)(Value * 3785.41f); }
 
-FP4 ConvertMilliitersToGallons(UI4 Value) { return (3785.41f / (FP4)Value); }
+FPC ConvertMilliitersToGallons(UIC Value) { return (3785.41f / (FPC)Value); }
 
 FlowController::FlowController(PinName sensor_pin, PinName solenoid_pin,
-                               PinName pot_pin, UI4 max_flow_ml)
+                               PinName pot_pin, UIC max_flow_ml)
     : sensor_(sensor_pin),
       valve_(solenoid_pin),
       pot_(pot_pin),
@@ -25,12 +25,12 @@ FlowController::FlowController(PinName sensor_pin, PinName solenoid_pin,
       total_flow_ml_(0),
       target_flow_ml_(max_flow_ml / 2),
       max_flow_ml_(max_flow_ml) {
-  UI2 temp = pot_.read_u16();
+  UIB temp = pot_.read_u16();
   last_sample_ = temp;
   sensor_.rise(callback(this, &FlowController::PulseFlowSensor));
 }
 
-void FlowController::StartWatering(SI4 index) {
+void FlowController::StartWatering(SIC index) {
   count_ = flow_rate_ml_ = total_flow_ml_ = 0;
 
   if (target_flow_ml_ == 0) return;
@@ -41,20 +41,20 @@ void FlowController::StartWatering(SI4 index) {
   Print(index);
 }
 
-void FlowController::Print(SI4 index) {
+void FlowController::Print(SIC index) {
   cout << "\n| " << index << ": flow rate = " << flow_rate_ml_
        << " mL/s, total =  " << total_flow_ml_
        << " mL, target =  " << target_flow_ml_ << " mL";
 }
 
 void FlowController::UpdateTargetFlow() {
-  UI2 sample = pot_.read_u16(), last_sample = last_sample_;
+  UIB sample = pot_.read_u16(), last_sample = last_sample_;
 
   last_sample_ = sample;
 
   if ((sample > last_sample - 300) && (sample < last_sample + 300)) return;
 
-  UI4 tempTargetFlow_mL = (sample * max_flow_ml_) / 0xffff;
+  UIC tempTargetFlow_mL = (sample * max_flow_ml_) / 0xffff;
 
   target_flow_ml_ = tempTargetFlow_mL < 100 ? 0 : tempTargetFlow_mL;
 
@@ -64,19 +64,19 @@ void FlowController::UpdateTargetFlow() {
     OpenValve();
 }
 
-inline void FlowController::StopWatering(SI4 Index) {
+inline void FlowController::StopWatering(SIC Index) {
   CloseValve();
   Print(Index);
   cout << "\n| Done watering";
   PrintLine();
 }
 
-void FlowController::Update(SI4 Index) {
+void FlowController::Update(SIC Index) {
   UpdateTargetFlow();
 
   /// Update the flow sensor pulse count and flow calculations.
 
-  UI4 tempFlowRate_mL = (2000 * count_) / 540;
+  UIC tempFlowRate_mL = (2000 * count_) / 540;
   flow_rate_ml_ = tempFlowRate_mL;
   total_flow_ml_ += tempFlowRate_mL;
 

@@ -1,21 +1,21 @@
-/* IGEEK for mbed @version 0.x
-@link    https://github.com/kabuki-starship/igeek.mbed.git
-@file    /ledrgb.h
+/* Kabuki Tek Toolkit @version 0.x
+@link    https://github.com/kabuki-starship/kabuki.toolkit.tek.git
+@file    /led_rgb.h
 @author  Cale McCollough <https://calemccollough.github.io>
-@license Copyright (C) 2014-9 Cale McCollough; all right reserved (R). 
-This Source Code Form is subject to the terms of the Mozilla Public License, 
-v. 2.0. If a copy of the MPL was not distributed with this file, You can 
-obtain one at https://mozilla.org/MPL/2.0/. */
+@license Copyright 2019 (C) Kabuki Starship (TM) <kabukistarship.com>.
+This Source Code Form is subject to the terms of the Mozilla Public License, v. 
+2.0. If a copy of the MPL was not distributed with this file, You can obtain one
+at <https://mozilla.org/MPL/2.0/>. */
 
 #pragma once
-#include <pch.h>
-#ifndef IGEEK_MBED_LEDS_RGBLED
-#define IGEEK_MBED_LEDS_RGBLED 1
+#include <module_config.h>
+#ifndef KABUKI_TEK_RGBLED
+#define KABUKI_TEK_RGBLED 1
 
 namespace _ {
 
 /* A Red-Green-Blue LED.
-Type UI1 is going to be a integer type used for storing
+Type UIA is going to be a integer type used for storing
 @todo There needs to be a camera setup that scans the LEDs on the board and
 stores an offset, like +/-16, that allows for adjusting brighter LEDs.
 Its not a problem till we've determined it is a problem. */
@@ -31,25 +31,25 @@ class LEDRGB {
   void SetColor(CRGBAUI4 rgba);
 
   /* Gets the red channel. */
-  UI1 GetRed();
+  UIA GetRed();
 
   /* Sets the red channel to the new value. */
   void SetRed(CRGBAUI4 value);
 
   /* Gets the green channel. */
-  UI1 GetGreen();
+  UIA GetGreen();
 
   /* Sets the green channel to the new value. */
   void SetGreen(CRGBAUI4 value);
 
   /* Gets the blue channel. */
-  UI1 GetBlue();
+  UIA GetBlue();
 
   /* Sets the blue channel to the new value. */
   void SetBlue(CRGBAUI4 value);
 
   /* Gets the brightness channel. */
-  UI1 GetBrightness();
+  UIA GetBrightness();
 
   /* Sets the brightness channel to the new value. */
   void SetBrightness(CRGBAUI4 value);

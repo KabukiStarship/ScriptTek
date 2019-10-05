@@ -1,16 +1,16 @@
-/* IGEEK for mbed @version 0.x
-@link    https://github.com/kabuki-starship/igeek.mbed.git
-@file    /ledmatrix.h
+/* Kabuki Tek Toolkit @version 0.x
+@link    https://github.com/kabuki-starship/kabuki.toolkit.tek.git
+@file    /led_matrix.h
 @author  Cale McCollough <https://calemccollough.github.io>
-@license Copyright (C) 2014-9 Cale McCollough; all right reserved (R). 
-This Source Code Form is subject to the terms of the Mozilla Public License, 
-v. 2.0. If a copy of the MPL was not distributed with this file, You can 
-obtain one at https://mozilla.org/MPL/2.0/. */
+@license Copyright 2019 (C) Kabuki Starship (TM) <kabukistarship.com>.
+This Source Code Form is subject to the terms of the Mozilla Public License, v. 
+2.0. If a copy of the MPL was not distributed with this file, You can obtain one
+at <https://mozilla.org/MPL/2.0/>. */
 
 #pragma once
-#include <pch.h>
-#ifndef IGEEK_MBED_LEDS_LEDMATRIX
-#define IGEEK_MBED_LEDS_LEDMATRIX 1
+#include <module_config.h>
+#ifndef KABUKI_TEK_LEDMATRIX
+#define KABUKI_TEK_LEDMATRIX 1
 
 namespace _ {
 
@@ -19,21 +19,21 @@ Multiplexing LEDs involves switching between rows in a "mux" one row at a
 time, and giving each row 256 steps. The PWM counter counts down to zero.
 In order to pack as many LEDs into RAM as possible, only one bit is used
 to store the LED state. */
-template <UI1 kRowCount_, UI1 kColCount_>
+template <UIA kRowCount_, UIA kColCount_>
 class LEDMatrix {
  public:
   /* Simple default constructor. */
-  LEDMatrix(UI1* Rows, UI1* Columns) : row(Rows), columns(Columns) {}
+  LEDMatrix(UIA* Rows, UIA* Columns) : row(Rows), columns(Columns) {}
 
   inline void ClearLEDs() {
     *row = 0;
 
-    for (UI1 i = 0; i < kColCount_; ++i) {
+    for (UIA i = 0; i < kColCount_; ++i) {
     }
   }
 
   /* Updates the LED matrix row. */
-  inline void Update(UI1 Row) {
+  inline void Update(UIA Row) {
     if (Row > kRowCount_) {
       // printf ("Error: Row out of bounds!");
       return;
@@ -42,7 +42,7 @@ class LEDMatrix {
   }
 
  private:
-  UI1 *row,      //< Pointer to the row UI1.
+  UIA *row,      //< Pointer to the row UIA.
       *columns;  //< Pointer to the column.
 };
 }  // namespace _

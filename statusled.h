@@ -1,16 +1,16 @@
-/* IGEEK for mbed @version 0.x
-@link    https://github.com/kabuki-starship/igeek.mbed.git
-@file    /statusled.h
+/* Kabuki Tek Toolkit @version 0.x
+@link    https://github.com/kabuki-starship/kabuki.toolkit.tek.git
+@file    /led_status.h
 @author  Cale McCollough <https://calemccollough.github.io>
-@license Copyright (C) 2014-9 Cale McCollough; all right reserved (R). 
-This Source Code Form is subject to the terms of the Mozilla Public License, 
-v. 2.0. If a copy of the MPL was not distributed with this file, You can 
-obtain one at https://mozilla.org/MPL/2.0/. */
+@license Copyright 2019 (C) Kabuki Starship (TM) <kabukistarship.com>.
+This Source Code Form is subject to the terms of the Mozilla Public License, v. 
+2.0. If a copy of the MPL was not distributed with this file, You can obtain one
+at <https://mozilla.org/MPL/2.0/>. */
 
 #pragma once
-#include <pch.h>
-#ifndef IGEEK_MBED_STATUS_LED
-#define IGEEK_MBED_STATUS_LED 1
+#include <module_config.h>
+#ifndef KABUKI_TEK_STATUS_LED
+#define KABUKI_TEK_STATUS_LED 1
 
 #define CREATE_STATUS_LED static StatusLED<0, 1> Status(GREEN_LED);
 
@@ -25,7 +25,7 @@ obtain one at https://mozilla.org/MPL/2.0/. */
 namespace _ {
 
 /* Outputs the firmware status using the LED on the mbed board.
-This class works by using Strings with ASCII Mores Code. Each CH1 in a
+This class works by using Strings with ASCII Mores Code. Each CHA in a
 represents a pulse split into 4 lengths.
     
 
@@ -43,17 +43,17 @@ they look like the pulse widths.
  
 
 ## Terminology
-* Frame    - Each character in a CH1 sequence represents 3 timer
+* Frame    - Each character in a CHA sequence represents 3 timer
 interrupts.
 * Pattern  - A null-terminated AString of frames.
-* Sequence - A null-terminated AString of const CH1*.
+* Sequence - A null-terminated AString of const CHA*.
 @code
 StatusLED<0, 1> stausLED ();        //< Use <0, 1> if you're LED is active
 low. StatusLED<1, 0> stausLED  (LED_2);   //< Use <0, 1> if you're LED is
 active high.
         
 
-const CH1* examplePattern[] = {
+const CHA* examplePattern[] = {
     "...   ",       //< Blinks fast three times in a row.
     "...---...   ", //< SOS in Mores Code.
     "____    ",     //< Slowly blinks on and off.
@@ -62,17 +62,17 @@ const CH1* examplePattern[] = {
 statusLED.SetPattern  (exapmlePattern, 1.5f);
 @endcode
 */
-template <SI4 On, SI4 Off>
+template <SIC On, SIC Off>
 class StatusLED {
  public:
-  static const FP4 DefaultFrequency = 0.5f,  //< Default frequency in hertz.
+  static const FPC DefaultFrequency = 0.5f,  //< Default frequency in hertz.
       MinFrequency = 0.01f,                  //< Min frequency in hertz.
       MaxFrequency = 2.0f;                   //< Max frequency in hertz.
 
   typedef enum { Off = 0, Short = 63, Long = 127, On = 255 } Pulse;
 
   /* Simple constructor. */
-  StatusLED(PinName led_pin = LED_1, FP4 frequency = DefaultFrequency)
+  StatusLED(PinName led_pin = LED_1, FPC frequency = DefaultFrequency)
       : count(0),
         period(0),
         sequence(0),
@@ -84,18 +84,18 @@ class StatusLED {
   }
 
   /* Sets the light blinking sequence. */
-  void SetSequence(CH1** sequence) {
+  void SetSequence(CHA** sequence) {
     if (sequence == nullptr) {
       sequence = 0;
       StopBlinking();
       return;
     }
 
-    const CH1* tempString = sequence[0];
+    const CHA* tempString = sequence[0];
 
     if (tempString == 0 || tempString[0] == 0) {
 #if _Debug
-      cout << "\n| Error: First sequence and first CH1 can't be null.\n";
+      cout << "\n| Error: First sequence and first CHA can't be null.\n";
 #endif
       return;
     }
@@ -118,14 +118,14 @@ class StatusLED {
   /* Starts flashing the SOS sequence. */
   void FlashSOS() {
     sequence = SOSPattern();
-    const CH1* _cursor = sequence[0];
+    const CHA* _cursor = sequence[0];
     cursor = *_cursor;
     period = *_cursor;
   }
 
   /* Starts blinking. */
   void StartBlinking() {
-    const CH1* _pattern = sequence[0];
+    const CHA* _pattern = sequence[0];
     pattern = _pattern;
     cursor = _pattern;
     period = *_pattern;
@@ -143,7 +143,7 @@ class StatusLED {
   }
 
   /* Sets the blink frequent. */
-  void SetFrequency(FP4 Value) {
+  void SetFrequency(FPC Value) {
     frequency = Value;
     blinker.attach(this, &StatusLED::Blink, Value);
   }
@@ -152,50 +152,50 @@ class StatusLED {
   void HandleAssert() { SetPattern(SOSPattern()); }
 
   /* Pattern blinks three times in a row. */
-  const CH1** Blink3TimesPattern() {
-    static const CH1** sequence = {"...   ", 0};
+  const CHA** Blink3TimesPattern() {
+    static const CHA** sequence = {"...   ", 0};
     return &sequence;
   }
 
   /* Standard blink sequence. */
-  const CH1** SlowBlinkPattern() {
-    static const CH1** sequence = {"__  ", 0};
+  const CHA** SlowBlinkPattern() {
+    static const CHA** sequence = {"__  ", 0};
     return &sequence;
   }
 
   /* Standard blink sequence. */
-  const CH1** FastBlinkPattern() {
-    static const CH1** sequence = {"_ ", 0};
+  const CHA** FastBlinkPattern() {
+    static const CHA** sequence = {"_ ", 0};
     return &sequence;
   }
 
   /* Standard SOS sequence. */
-  const CH1** SOSPattern() {
-    static const CH1** sequence = {"...---...      ", 0};
+  const CHA** SOSPattern() {
+    static const CHA** sequence = {"...---...      ", 0};
     return &sequence;
   }
 
  private:
-  CH1 count,             //< Counter counts from 1-3.
-      period;            //< The current period CH1.
-  FP4 frequency;         //< The period length.
-  const CH1** sequence;  //< Null-terminated AString of pointers.
-  const CH1 *pattern,    //< The current AString in the sequence.
-      *cursor;           //< The current CH1 in the current AString.
+  CHA count,             //< Counter counts from 1-3.
+      period;            //< The current period CHA.
+  FPC frequency;         //< The period length.
+  const CHA** sequence;  //< Null-terminated AString of pointers.
+  const CHA *pattern,    //< The current AString in the sequence.
+      *cursor;           //< The current CHA in the current AString.
   DigitalOut pin;        //< Red LED on the mbed board.
   Ticker blinker;        //< Ticker for blinking the LEDs.
 
-  /* Gets th next CH1 in the sequence. */
-  inline CH1 GetNextPeriod() {
+  /* Gets th next CHA in the sequence. */
+  inline CHA GetNextPeriod() {
     /// We've already checked that the sequence and cursor and not null.
 
-    CH1 period_temp = *(++cursor);
+    CHA period_temp = *(++cursor);
 
     if (period_temp == 0) {
-      const CH1* tempPattern = *(pattern + sizeof(const CH1*));
+      const CHA* tempPattern = *(pattern + sizeof(const CHA*));
 
       if (tempPattern == nullptr) {
-        const CH1* _cursor = sequence[0];
+        const CHA* _cursor = sequence[0];
         cursor = pattern = _cursor;
         return *_cursor;
       }
@@ -209,12 +209,12 @@ class StatusLED {
 
   /* Updates the status LED. */
   inline void Update() {
-    const CH1* period_temp = period;
+    const CHA* period_temp = period;
     if (sequence == nullptr || period_temp == nullptr) return;
 
     if (count == 0)  //< Beginning of cycle period.
     {
-      CH1 _period = GetNextPeriod();
+      CHA _period = GetNextPeriod();
       period = _period;
       count = 1;
       if (_period < '-') {
@@ -253,7 +253,7 @@ using namespace KabukiTek;
 StatusLED Status ();
 InterruptIn Switch3 (SW3);
 
-const CH1* examplePattern[] = {
+const CHA* examplePattern[] = {
     "...   ",           //< Blinks fast three times in a row.
     "...---...      ",  //< SOS in Mores Code.
     "____    ",         //< Slowly blinks on and off.
@@ -273,7 +273,7 @@ void SwitchIRQHandler () {
     }
 }
 
-SI4 main () {
+SIC main () {
     printf ("\r\n\nTesting mbed Utils.\r\n\n");
     PrintLine ();
 

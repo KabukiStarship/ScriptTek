@@ -1,48 +1,48 @@
-/* IGEEK for mbed @version 0.x
-@link    https://github.com/kabuki-starship/igeek.mbed.git
-@file    /flowcontroller.h
+/* Kabuki Tek Toolkit @version 0.x
+@link    https://github.com/kabuki-starship/kabuki.toolkit.tek.git
+@file    /flow_controller.h
 @author  Cale McCollough <https://calemccollough.github.io>
-@license Copyright (C) 2014-9 Cale McCollough; all right reserved (R). 
-This Source Code Form is subject to the terms of the Mozilla Public License, 
-v. 2.0. If a copy of the MPL was not distributed with this file, You can 
-obtain one at https://mozilla.org/MPL/2.0/. */
+@license Copyright 2019 (C) Kabuki Starship (TM) <kabukistarship.com>.
+This Source Code Form is subject to the terms of the Mozilla Public License, v. 
+2.0. If a copy of the MPL was not distributed with this file, You can obtain one
+at <https://mozilla.org/MPL/2.0/>. */
 
 #pragma once
-#include <pch.h>
-#ifndef IGEEK_MBED_FLOW_CONTROLLER
-#define IGEEK_MBED_FLOW_CONTROLLER 1
+#include <module_config.h>
+#ifndef KABUKI_TEK_FLOW_CONTROLLER
+#define KABUKI_TEK_FLOW_CONTROLLER 1
 
 namespace _ {
 
 /* Converts gallows to milliliters. */
-UI4 ConvertGallonsToMilliiters(FP4 value);
+UIC ConvertGallonsToMilliiters(FPC value);
 
 /* Converts milliliters to gallons. */
-FP4 ConvertMilliitersToGallons(UI4 value);
+FPC ConvertMilliitersToGallons(UIC value);
 
 class FlowController {
  public:
   /* Constructs a smart waterer. */
   FlowController(PinName sensor_pin, PinName solenoid_pin, PinName pot_pin,
-                 UI4 max_flow_ml);
+                 UIC max_flow_ml);
 
   /* StartWaterings to the beginning of the watering cycle. */
-  void StartWatering(SI4 index);
+  void StartWatering(SIC index);
 
   /* Increments the flow rate sensor pulse counter. */
   void PulseFlowSensor();
 
   /* Prints the state of object to the debug stream. */
-  void Print(SI4 index);
+  void Print(SIC index);
 
   /* Prints the state of object when done watering to the debug stream. */
-  inline void StopWatering(SI4 index);
+  inline void StopWatering(SIC index);
 
   /* Polls the pot and updates the target flow. */
   void UpdateTargetFlow();
 
-  /* Updates the FP4 rate. */
-  void Update(SI4 index);
+  /* Updates the FPC rate. */
+  void Update(SIC index);
 
   /* Opens the solenoid valve. */
   void OpenValve();
@@ -57,12 +57,12 @@ class FlowController {
   InterruptIn sensor_;  //< Flow sensor pin.
   DigitalOut valve_;    //< Solenoid valve pin.
   AnalogIn pot_;        //< Potentiometer pin.
-  volatile UI2 count_;  //< Flow sensor pulse count_.
-  UI2 flow_rate_ml_;    //< Flow rate in milliliters.
-  UI4 total_flow_ml_,   //< Total flow in mL.
+  volatile UIB count_;  //< Flow sensor pulse count_.
+  UIB flow_rate_ml_;    //< Flow rate in milliliters.
+  UIC total_flow_ml_,   //< Total flow in mL.
       target_flow_ml_,  //< Target flow in mL per cycle.
       max_flow_ml_;     //< Maximum target flow in mL per cycle.
-  UI2 last_sample_;     //< Last pot value read.
+  UIB last_sample_;     //< Last pot value read.
 };
 
 class FlowControllerOp : public _::Operand {

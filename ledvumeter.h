@@ -1,22 +1,22 @@
-/* IGEEK for mbed @version 0.x
-@link    https://github.com/kabuki-starship/igeek.mbed.git
-@file    /ledvumeter.h
+/* Kabuki Tek Toolkit @version 0.x
+@link    https://github.com/kabuki-starship/kabuki.toolkit.tek.git
+@file    /led_vu_meter.h
 @author  Cale McCollough <https://calemccollough.github.io>
-@license Copyright (C) 2014-9 Cale McCollough; all right reserved (R). 
-This Source Code Form is subject to the terms of the Mozilla Public License, 
-v. 2.0. If a copy of the MPL was not distributed with this file, You can 
-obtain one at https://mozilla.org/MPL/2.0/. */
+@license Copyright 2019 (C) Kabuki Starship (TM) <kabukistarship.com>.
+This Source Code Form is subject to the terms of the Mozilla Public License, v. 
+2.0. If a copy of the MPL was not distributed with this file, You can obtain one
+at <https://mozilla.org/MPL/2.0/>. */
 
 #pragma once
-#include <pch.h>
-#ifndef IGEEK_MBED_LED_VU_METER
-#define IGEEK_MBED_LED_VU_METER 1
+#include <module_config.h>
+#ifndef KABUKI_TEK_LED_VU_METER
+#define KABUKI_TEK_LED_VU_METER 1
 
 namespace _ {
 
 /* An LED VU Meter
     i.e. volume bar. */
-template <UI1 kNumSegments>
+template <UIA kNumSegments>
 class LedVuMeter {
  public:
   /* Default constructor initializes LEDs in off state. */
@@ -26,7 +26,7 @@ class LedVuMeter {
   void Print();
 
  private:
-  UI1 value;  //< The value of the VU meter.
+  UIA value;  //< The value of the VU meter.
 };
 }  // namespace _
 #endif

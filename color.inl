@@ -1,13 +1,13 @@
-/* IGEEK for mbed @version 0.x
-@link    https://github.com/kabuki-starship/igeek.mbed.git
+/* Kabuki Tek Toolkit @version 0.x
+@link    https://github.com/kabuki-starship/kabuki.toolkit.tek.git
 @file    /color.inl
 @author  Cale McCollough <https://calemccollough.github.io>
-@license Copyright (C) 2014-9 Cale McCollough; all right reserved (R). 
-This Source Code Form is subject to the terms of the Mozilla Public License, 
-v. 2.0. If a copy of the MPL was not distributed with this file, You can 
-obtain one at https://mozilla.org/MPL/2.0/. */
+@license Copyright 2019 (C) Kabuki Starship (TM) <kabukistarship.com>.
+This Source Code Form is subject to the terms of the Mozilla Public License, v. 
+2.0. If a copy of the MPL was not distributed with this file, You can obtain one
+at <https://mozilla.org/MPL/2.0/>. */
 
-#include <pch.h>
+#include <module_config.h>
 
 #if SEAM >= KABUKI_FEATURES_LIGHTS_1
 #if SEAM == KABUKI_FEATURES_LIGHTS_1
@@ -16,7 +16,7 @@ obtain one at https://mozilla.org/MPL/2.0/. */
 #include "module_release.inl"
 #endif
 
-#include "c_color.h"
+#include "color.h"
 
 namespace _ {
 
@@ -69,32 +69,32 @@ const CRGBAUI4* PresetColors () {
   return &presetColorsArray[0];
 }
 
-CRGBAUI4 ColorRainbow (SI4 index) {
+CRGBAUI4 ColorRainbow (SIC index) {
   if (index < 0 || index >= 96) return Black;
   return RainbowColors ()[index];
 }
 
-CRGBAUI4 ColorPreset (SI4 index) {
+CRGBAUI4 ColorPreset (SIC index) {
   if (index < 0 || index >= 96) return Black;
   return PresetColors ()[index];
 }
 
 CRGBAUI4 RandomPresetColor () {
-  SI4 index = rand () % kNumPresetColors;
+  SIC index = rand () % kNumPresetColors;
   return PresetColors ()[index];
 }
 
-CRGBAUI4 RandomColor (SI4 index) {
+CRGBAUI4 RandomColor (SIC index) {
   return rand ();
 }
 
 CRGBAUI4 MixColor (CRGBAUI4 a, CRGBAUI4 b) {
-  UI4 red = (a & 0xff),
+  UIC red = (a & 0xff),
     green = (a & 0xff00) >> 8,
     blue = (a & 0xff00) >> 16,
     alpha = (a & 0xff00) >> 24;
 
-  UI1 r2 = (b & 0xff),
+  UIA r2 = (b & 0xff),
     g2 = (b & 0xff00) >> 8,
     b2 = (b & 0xff00) >> 16,
     a2 = (b & 0xff00) >> 24;
@@ -107,71 +107,71 @@ CRGBAUI4 MixColor (CRGBAUI4 a, CRGBAUI4 b) {
   return red & green & blue & alpha;
 }
 
-CRGBAUI4 ChangeBrightness (CRGBAUI4 color, SI4 brightness_change) {
+CRGBAUI4 ChangeBrightness (CRGBAUI4 color, SIC brightness_change) {
   CRGBAUI4 alpha = ((color & 0xff000000) >> 24) + brightness_change;
   return (color & 0xffffff) & (alpha << 24);
 }
 
-CRGBAUI4 DecreaseBrightness (CRGBAUI4 color, SI4 brightness_change) {
+CRGBAUI4 DecreaseBrightness (CRGBAUI4 color, SIC brightness_change) {
   CRGBAUI4 alpha = ((color & 0xff000000) >> 24) - brightness_change;
   return (color & 0xffffff) & (alpha << 24);
 }
 
-CRGBAUI4 ColorMake (UI1 red, UI1 green, UI1 blue) {
-  return (UI4)red || ((UI4)green) << 8 ||
-    ((UI4)blue) << 16 || ((UI4)kDefaultBrightness) << 24;
+CRGBAUI4 ColorMake (UIA red, UIA green, UIA blue) {
+  return (UIC)red || ((UIC)green) << 8 ||
+    ((UIC)blue) << 16 || ((UIC)kDefaultBrightness) << 24;
 }
 
-CRGBAUI4 ColorMake (UI1 red, UI1 green, UI1 blue, UI1 alpha) {
-  return (UI4)red || ((UI4)green) << 8 ||
-    ((UI4)blue) << 16 || ((UI4)alpha) << 24;
+CRGBAUI4 ColorMake (UIA red, UIA green, UIA blue, UIA alpha) {
+  return (UIC)red || ((UIC)green) << 8 ||
+    ((UIC)blue) << 16 || ((UIC)alpha) << 24;
 }
 
-UI1 ColorGetRed (CRGBAUI4 color) {
-  return (UI1)color;
+UIA ColorGetRed (CRGBAUI4 color) {
+  return (UIA)color;
 }
 
-void ColorSetRed (CRGBAUI4 color, UI1 value) {
-  UI4 rgba_value = color & 0xFFFFFF00;
+void ColorSetRed (CRGBAUI4 color, UIA value) {
+  UIC rgba_value = color & 0xFFFFFF00;
   rgba_value |= value;
 }
 
-UI1 ColorGetGreen (CRGBAUI4 color) {
-  return (UI1)(color >> 8);
+UIA ColorGetGreen (CRGBAUI4 color) {
+  return (UIA)(color >> 8);
 }
 
-void ColorSetGreen (CRGBAUI4 color, UI1 value) {
-  UI4 rgba_value = color & 0xFFFF00FF;
-  rgba_value |= ((UI4)value) << 8;
+void ColorSetGreen (CRGBAUI4 color, UIA value) {
+  UIC rgba_value = color & 0xFFFF00FF;
+  rgba_value |= ((UIC)value) << 8;
 }
 
-UI1 ColorGetBlue (CRGBAUI4 color) {
-  return (UI1)(color >> 16);
+UIA ColorGetBlue (CRGBAUI4 color) {
+  return (UIA)(color >> 16);
 }
 
-void ColorSetBlue (CRGBAUI4 color, UI1 value) {
-  UI4 rgba_value = color & 0xFF00FFFF;
-  rgba_value |= ((UI4)value) << 16;
+void ColorSetBlue (CRGBAUI4 color, UIA value) {
+  UIC rgba_value = color & 0xFF00FFFF;
+  rgba_value |= ((UIC)value) << 16;
 }
 
-UI1 ColorGetAlpha (CRGBAUI4 color) {
-  return (UI1)(color >> 24);
+UIA ColorGetAlpha (CRGBAUI4 color) {
+  return (UIA)(color >> 24);
 }
 
-void ColorSetAlpha (CRGBAUI4 color, UI1 value) {
-  UI4 rgba_value = color & 0x00FFFFFF;
-  rgba_value |= ((UI4)value) << 24;
+void ColorSetAlpha (CRGBAUI4 color, UIA value) {
+  UIC rgba_value = color & 0x00FFFFFF;
+  rgba_value |= ((UIC)value) << 24;
 }
 
-void ColorToHSV (CRGBAUI4 color, FP4& fR, FP4& fG, FP4 fB, FP4& fH,
-  FP4& fS, FP4& fV) {
+void ColorToHSV (CRGBAUI4 color, FPC& fR, FPC& fG, FPC fB, FPC& fH,
+  FPC& fS, FPC& fV) {
   /*
-  FP4 fCMax = fR > fG ? fR : fG;
+  FPC fCMax = fR > fG ? fR : fG;
   fCMax = fCMax > fB ? fCMax : fB;
-  FP4 fCMin = fR < fG ? fR : fG;
+  FPC fCMin = fR < fG ? fR : fG;
   fCMin = fCMin < fB ? fCMin : fB;
 
-  FP4 fDelta = fCMax - fCMin;
+  FPC fDelta = fCMax - fCMin;
 
   if (fDelta > 0)
   {
@@ -213,13 +213,13 @@ void ColorToHSV (CRGBAUI4 color, FP4& fR, FP4& fG, FP4 fB, FP4& fH,
   */
 }
 
-void ColorSetHSV (CRGBAUI4 color, FP4& fR, FP4& fG, FP4& fB, FP4& fH,
-  FP4& fS, FP4& fV) {
+void ColorSetHSV (CRGBAUI4 color, FPC& fR, FPC& fG, FPC& fB, FPC& fH,
+  FPC& fS, FPC& fV) {
   /*
-  FP4 fC = fV * fS; // Chroma
-  FP4 fHPrime = fmod (fH / 60.0, 6);
-  FP4 fX = fC * (1 - fabs (fmod (fHPrime, 2) - 1));
-  FP4 fM = fV - fC;
+  FPC fC = fV * fS; // Chroma
+  FPC fHPrime = fmod (fH / 60.0, 6);
+  FPC fX = fC * (1 - fabs (fmod (fHPrime, 2) - 1));
+  FPC fM = fV - fC;
 
   if (0 <= fHPrime && fHPrime < 1)
   {
